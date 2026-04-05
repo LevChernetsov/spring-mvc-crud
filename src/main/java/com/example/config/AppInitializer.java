@@ -6,13 +6,11 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        // Конфигурация для корневого контекста (БД, сервисы, DAO)
-        return new Class[]{AppConfig.class};
+        return new Class[]{HibernateConfig.class, SecurityConfig.class};
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        // Конфигурация для сервлета (контроллеры, ViewResolver)
         return new Class[]{WebConfig.class};
     }
 
@@ -20,4 +18,5 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
     protected String[] getServletMappings() {
         return new String[]{"/"};
     }
+
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -29,8 +30,8 @@ public class UserDao {
     // (5) Получить ВСЕХ пользователей
     public List<User> findAll() {
         // JPQL запрос (не SQL, а запрос к объектам Java)
-        return entityManager.createQuery("SELECT u FROM User u", User.class)
-                .getResultList();
+        return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
+
     }
 
     // (6) Обновить существующего пользователя
@@ -45,6 +46,17 @@ public class UserDao {
         User user = findById(id);
         if (user != null) {
             entityManager.remove(user);  // DELETE из базы
+        }
+    }
+
+    public User findByUsername(String username) {
+        try {
+            User user = entityManager.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+                    .setParameter("username", username)
+                    .getSingleResult();
+            return user;
+        } catch (NoResultException e) {
+            return null;
         }
     }
 }

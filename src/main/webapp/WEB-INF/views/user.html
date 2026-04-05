@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+</head>
+<body>
+<h2>User Profile</h2>
+
+<p><strong>Username:</strong> <span th:text="${user.username}">username</span></p>
+<p><strong>First Name:</strong> <span th:text="${user.firstName}">First</span></p>
+<p><strong>Last Name:</strong> <span th:text="${user.lastName}">Last</span></p>
+<p><strong>Email:</strong> <span th:text="${user.email}">email</span></p>
+<p><strong>Roles:</strong>
+    <span th:each="role, iterStat : ${user.roles}">
+            <span th:text="${role.name}">ROLE</span>
+            <span th:if="${!iterStat.last}">, </span>
+        </span>
+</p>
+
+<br>
+<a th:href="@{/logout}">Logout</a>
+</body>
+</html>

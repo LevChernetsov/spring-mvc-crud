@@ -47,4 +47,10 @@ public class UserService {
     public void deleteUser(Long id) {
         userDao.delete(id);
     }
+
+
+    @Transactional(readOnly = true)
+    public User findByUsername(String username) {
+        return userDao.findByUsername(username);
+    }
 }
